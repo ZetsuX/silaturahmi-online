@@ -1,3 +1,14 @@
+<?php 
+    session_start();
+
+    if (!isset($_SESSION['loggedin'])){
+        header('Location: login.php');
+        exit;
+    }
+
+    require 'utils/functions.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,5 +17,8 @@
 </head>
 <body>
     <h1 style="display: inline-block; position: relative; bottom: 20px;">Silaturahmi Online</h1>
+
+    <a href="logout.php" style="float: right">Log Out</a>
+    <br>
 </body>
 </html>
