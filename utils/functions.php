@@ -56,7 +56,7 @@
         return mysqli_affected_rows($dbConn);
     }
 
-    function getMsgsByQuery($query) {
+    function getByQuery($query) {
         global $dbConn;
 
         $res = mysqli_query($dbConn, $query);
@@ -109,7 +109,10 @@
         $mcontent = htmlspecialchars($newData["mcontent"]);
         $muid = htmlspecialchars($newData["muid"]);
 
-        if ($newFile["mimage"]) {
+        if ($newFile['mimage']['error'] == 4 || ($newFile['mimage']['size'] == 0 && $newFile['mimage']['error'] == 0)) {
+            $query = "INSERT INTO messages (id, content, user_id) VALUES (
+                '', '$mcontent', $muid)";
+        } else {
             $mimage = uploadFile($newFile["mimage"], ['jpg', 'png', 'jpeg'], 2000000);
             if (!$mimage) {
                 return 0;
@@ -117,9 +120,6 @@
 
             $query = "INSERT INTO messages (id, content, user_id, image) VALUES (
                 '', '$mcontent', $muid, '$mimage')";
-        } else {
-            $query = "INSERT INTO messages (id, content, user_id) VALUES (
-                '', '$mcontent', $muid)";
         }
 
         mysqli_query($dbConn, $query);
@@ -133,7 +133,7 @@
         $econtent = htmlspecialchars($editedData["econtent"]);
         $oldimage = htmlspecialchars($editedData["oldimg"]);
 
-        if (!$editedFile['eimage'] || $editedFile['eimage']['error'] === 4) {
+        if (($editedFile['mimage']['size'] == 0 && $editedFile['mimage']['error'] == 0) || $editedFile['eimage']['error'] === 4) {
             $eimage = $oldimage;
         } else {
             $eimage = uploadFile($editedFile['eimage'], ['jpg', 'png', 'jpeg'], 2000000);
@@ -157,6 +157,23 @@
         global $dbConn;
 
         $query = "DELETE FROM messages WHERE id = $dId";
+        mysqli_query($dbConn, $query);
+        return mysqli_affected_rows($dbConn);
+    }
+
+    function replyMsg($newData) {
+        global $dbConn;
+
+        $rid = $newData["rid"];
+        $radm = $newData["radm"];
+        $mreply = $newData["mreply"];
+
+        $query = 
+            "UPDATE messages SET 
+                reply = '$mreply -$radm'
+            WHERE id = $rid
+            ";
+
         mysqli_query($dbConn, $query);
         return mysqli_affected_rows($dbConn);
     }
