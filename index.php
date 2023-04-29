@@ -14,7 +14,14 @@
     require 'utils/functions.php';
 
     $uId = $_SESSION["uid"];
-    $messages = getByQuery("SELECT * FROM messages WHERE user_id = $uId ORDER BY id ASC");
+
+    $messagePerPage = 5;
+    $currentPage = (isset($_GET['page']) ? $_GET['page'] : 1);
+    $firstIndex = ($currentPage-1)*$messagePerPage;
+    $messageTotal = count(getByQuery("SELECT * FROM messages WHERE user_id = $uId"));
+    $pageCount = ceil($messageTotal/$messagePerPage);
+    
+    $messages = getByQuery("SELECT * FROM messages WHERE user_id = $uId ORDER BY id ASC LIMIT $firstIndex, $messagePerPage");
 ?>
 
 <!DOCTYPE html>

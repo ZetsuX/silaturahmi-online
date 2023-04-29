@@ -13,7 +13,15 @@
 
     require 'utils/functions.php';
 
-    $unreplieds = getByQuery("SELECT m.id, m.content, m.image, u.name FROM messages m INNER JOIN users u ON (m.user_id = u.id) WHERE m.reply IS NULL ORDER BY m.id ASC");
+    $repliedPerPage = 10;
+    $currentPage = (isset($_GET['page']) ? $_GET['page'] : 1);
+    $firstIndex = ($currentPage-1)*$repliedPerPage;
+    $repliedTotal = count(getByQuery("SELECT * FROM messages WHERE reply IS NOT NULL"));
+    $pageCount = ceil($repliedTotal/$repliedPerPage);
+
+    $replieds = getByQuery("SELECT * FROM messages WHERE reply IS NOT NULL ORDER BY id ASC LIMIT $firstIndex, $repliedPerPage");
+
+    $unreplieds = getByQuery("SELECT m.id, m.content, m.image, u.name FROM messages m INNER JOIN users u ON (m.user_id = u.id) WHERE m.reply IS NULL ORDER BY m.id ASC LIMIT 10;");
 ?>
 
 <!DOCTYPE html>
