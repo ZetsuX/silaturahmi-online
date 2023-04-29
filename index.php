@@ -33,9 +33,9 @@
         AOS.init();
     </script>
     <section class='bg-[#FDFAF0] h-full w-full overflow-hidden text-[#31393C]'>
-        <div class='absolute w-[30%] right-0 top-12' data-aos="fade-left" data-aos-duration='1000'><img src="assets/Vector.png" alt="" class=' scale-50 opacity-80'></div>
-        <div class='absolute w-[30%] bottom-1/4' data-aos="fade-right" data-aos-duration='1000'><img src="assets/Vector1.png" alt="" class=' scale-50 opacity-80'></div>
-        <div class='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'><img src="assets/bg2.png" alt="" width='500' class='z-[-1] scale-90 blur-sm opacity-30'></div>
+        <div class='absolute w-[30%] right-0 top-12' data-aos="fade-left" data-aos-duration='1000'><img src="img/assets/Vector.png" alt="" class=' scale-50 opacity-80'></div>
+        <div class='absolute w-[30%] bottom-1/4' data-aos="fade-right" data-aos-duration='1000'><img src="img/assets/Vector1.png" alt="" class=' scale-50 opacity-80'></div>
+        <div class='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'><img src="img/assets/bg2.png" alt="" width='500' class='z-[-1] scale-90 blur-sm opacity-30'></div>
         <div class='h-[4.5rem] bg-white shadow-lg w-8/12 mx-auto relative overflow-x-hidden translate-y-12 rounded-full flex items-center justify-between px-4 z-30'>
    
             <div class='absolute marquee w-[1020px] overflow-x-hidden flex gap-x-2 items-center px-4'>
@@ -46,7 +46,7 @@
             </div>
 
             <div class='h-full w-fit flex items-center justify-end bg-white rounded-full self-end absolute left-0 px-5'>
-            <img src="assets/logo.png" width='50px' alt="">
+            <img src="img/assets/logo.png" width='50px' alt="">
             </div>
             <div class='h-full w-fit flex items-center justify-end bg-white rounded-full self-end absolute right-0 px-5'>
             <a href="logout.php" class='px-5 py-2 cursor-pointer bg-[#31393C] text-[#FDFAF0] rounded-full' style="font-family: 'Poppins', sans-serif;">Log Out</a>
