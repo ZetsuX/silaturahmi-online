@@ -49,8 +49,8 @@
         }
 
         $query = 
-            "INSERT INTO users (id, name, username, password) VALUES (
-                '', '$rname', '$runame', '$rpass')";
+            "INSERT INTO users (name, username, password) VALUES (
+                '$rname', '$runame', '$rpass')";
 
         mysqli_query($dbConn, $query);
         return mysqli_affected_rows($dbConn);
@@ -110,16 +110,16 @@
         $muid = htmlspecialchars($newData["muid"]);
 
         if ($newFile['mimage']['error'] == 4 || ($newFile['mimage']['size'] == 0 && $newFile['mimage']['error'] == 0)) {
-            $query = "INSERT INTO messages (id, content, user_id) VALUES (
-                '', '$mcontent', $muid)";
+            $query = "INSERT INTO messages (content, user_id) VALUES (
+                '$mcontent', $muid)";
         } else {
             $mimage = uploadFile($newFile["mimage"], ['jpg', 'png', 'jpeg'], 2000000);
             if (!$mimage) {
                 return 0;
             }
 
-            $query = "INSERT INTO messages (id, content, user_id, image) VALUES (
-                '', '$mcontent', $muid, '$mimage')";
+            $query = "INSERT INTO messages (content, user_id, image) VALUES (
+                '$mcontent', $muid, '$mimage')";
         }
 
         mysqli_query($dbConn, $query);
