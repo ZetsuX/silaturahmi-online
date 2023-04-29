@@ -30,6 +30,7 @@
             $user = mysqli_fetch_assoc($checkUser);
             if (password_verify($pass, $user["password"])) {
                 $_SESSION["loggedin"] = true;
+                $_SESSION["uid"] = $user["id"];
 
                 if (isset($_POST["rmb"])) {
                     setcookie("log1", $user["id"], time() + 1800);

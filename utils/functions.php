@@ -55,4 +55,109 @@
         mysqli_query($dbConn, $query);
         return mysqli_affected_rows($dbConn);
     }
+
+    function getMsgsByQuery($query) {
+        global $dbConn;
+
+        $res = mysqli_query($dbConn, $query);
+        $rows = [];
+
+        while ($r = mysqli_fetch_assoc($res)) {
+            $rows[] = $r;
+        }
+
+        return $rows;
+    }
+
+    function uploadFile($file, $allowedExtensions, $maxSize) {
+        $fileName = $file["name"];
+        $fileSize = $file["size"];
+        $fileTmp = $file["tmp_name"];
+
+        $fileExtension = explode('.', $fileName);
+        $fileExtension = strtolower(end($fileExtension));
+
+        $allowedEString = implode(", ", $allowedExtensions);
+        if ( !in_array($fileExtension, $allowedExtensions) ) {
+            echo "
+                <script>
+                    alert('Please upload a file with extension $allowedEString.');
+                </script>
+            ";
+            return false;
+        }
+
+        if ( $fileSize > $maxSize ) {
+            echo "
+                <script>
+                    alert('File size is too large, maximum allowed size is $maxSize byte(s).');
+                </script>
+            ";
+            return false;
+        }
+
+        $fileName = str_replace("." . $fileExtension, "", $fileName);
+        $fileName = substr($fileName, 0, 75) . uniqid() . '.' . $fileExtension;
+
+        move_uploaded_file($fileTmp, '../img/' . $fileName);
+        return $fileName;
+    }
+
+    function createMsg($newData, $newFile) {
+        global $dbConn;
+
+        $mcontent = htmlspecialchars($newData["mcontent"]);
+        $muid = htmlspecialchars($newData["muid"]);
+
+        if ($newFile["mimage"]) {
+            $mimage = uploadFile($newFile["mimage"], ['jpg', 'png', 'jpeg'], 2000000);
+            if (!$mimage) {
+                return 0;
+            }
+
+            $query = "INSERT INTO messages (id, content, user_id, image) VALUES (
+                '', '$mcontent', $muid, '$mimage')";
+        } else {
+            $query = "INSERT INTO messages (id, content, user_id) VALUES (
+                '', '$mcontent', $muid)";
+        }
+
+        mysqli_query($dbConn, $query);
+        return mysqli_affected_rows($dbConn);
+    }
+
+    function editMsg($editedData, $editedFile) {
+        global $dbConn;
+
+        $eid = $editedData["eid"];
+        $econtent = htmlspecialchars($editedData["econtent"]);
+        $oldimage = htmlspecialchars($editedData["oldimg"]);
+
+        if (!$editedFile['eimage'] || $editedFile['eimage']['error'] === 4) {
+            $eimage = $oldimage;
+        } else {
+            $eimage = uploadFile($editedFile['eimage'], ['jpg', 'png', 'jpeg'], 2000000);
+            if (!$eimage) {
+                return 0;
+            }
+        }
+
+        $query = 
+            "UPDATE messages SET 
+                content = '$econtent',
+                image = '$eimage'
+            WHERE id = $eid
+            ";
+
+        mysqli_query($dbConn, $query);
+        return mysqli_affected_rows($dbConn);
+    }
+
+    function deleteMsg($dId) {
+        global $dbConn;
+
+        $query = "DELETE FROM messages WHERE id = $dId";
+        mysqli_query($dbConn, $query);
+        return mysqli_affected_rows($dbConn);
+    }
 ?>
