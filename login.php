@@ -31,6 +31,7 @@
             if (password_verify($pass, $user["password"])) {
                 $_SESSION["loggedin"] = true;
                 $_SESSION["uid"] = $user["id"];
+                $_SESSION["urole"] = $user["role"];
 
                 if (isset($_POST["rmb"])) {
                     setcookie("log1", $user["id"], time() + 1800);
