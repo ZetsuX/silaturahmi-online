@@ -6,9 +6,15 @@
         exit;
     }
 
+    if ($_SESSION['urole'] == 'admin') {
+        header('Location: admin.php');
+        exit;
+    }
+
     require 'utils/functions.php';
 
-    $messages = getMsgsByQuery("SELECT * FROM messages ORDER BY id ASC");
+    $uId = $_SESSION["uid"];
+    $messages = getByQuery("SELECT * FROM messages WHERE user_id = $uId ORDER BY id ASC");
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +38,7 @@
                     <th>No. </th>
                     <th>Image</th>
                     <th>Message</th>
+                    <th>Reply</th>
                     <th>Action</th>
                 </tr>
 
@@ -47,6 +54,13 @@
                             <?php endif; ?>
                         </td>
                         <td><?= $m['content'] ?></td>
+                        <td>
+                            <?php if ($m['reply']) :?>
+                                <p><?= $m['reply'] ?></p>
+                            <?php else :?>
+                                <h4>Not replied yet</h4>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <a href="messages/edit.php?id=<?= $m["id"] ?>">Edit</a> |
                             <a href="messages/delete.php?id=<?= $m["id"] ?>" 

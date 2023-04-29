@@ -9,7 +9,12 @@
     require '../utils/functions.php';
 
     $eId = $_GET["id"];
-    $message = getMsgsByQuery("SELECT * FROM messages WHERE id = $eId")[0];
+    $message = getByQuery("SELECT * FROM messages WHERE id = $eId")[0];
+
+    if ($message["user_id"] != $_SESSION["uid"]) {
+        header('Location: index.php');
+        exit;
+    }
 
     if (isset($_POST["esubmit"])) {
         $check = editMsg($_POST, $_FILES);
