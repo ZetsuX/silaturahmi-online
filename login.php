@@ -63,46 +63,53 @@
     </style>
 </head>
 <body>
-    <section class="w-screen h-screen border-2">
-        <div class='w-4/5 h-full mx-auto flex border-2 border-red-500 items-center'>
-            <div class="flex">
-                <div>
-                    <h1 class='text-2xl font-secondary'>Login Page</h1>
-        
-                    <?php if (isset($error)) : ?>
-                        <p style="color: red; font-family: Arial, Helvetica, sans-serif;">Username / Password is incorrect.</p>
-                    <?php endif; ?>
-            
-                    <form method="post">
-                        <ul>
-                            <li>
-                                <label for="luname">Username : </label>
-                                <input type="text" name="luname" id="luname">
-                            </li>
+    <script>
+        AOS.init();
+    </script>
+    <main class="w-screen h-screen flex justify-center items-center">
+        <section class='w-4/5 h-4/5 flex justify-center rounded-3xl overflow-hidden shadow-xl'>
+            <div class='w-full flex items-center justify-between relative bg-[#fefaf0]'>
+                <div class='w-full m-4 flex justify-center'>
+                    <div class="space-y-8 p-4 w-4/5">
+                        <h1 class='text-3xl font-secondary text-center font-bold'>Log in</h1>
+                        <?php if (isset($error)) : ?>
+                            <p style="color: red; font-family: Arial, Helvetica, sans-serif;">Username / Password is incorrect.</p>
+                        <?php endif; ?>
                 
-                            <li>
-                                <label style="padding: 0px 1.5px;" for="lpw">Password : </label>
-                                <input type="password" name="lpw" id="lpw">
-                            </li>
-                
-                            <br>
-                            <button type="submit" name="lsubmit">Login</button>
-                
-                            <div style="padding: 0px 0px 10px 77px; display: inline-block">
-                                <input type="checkbox" name="rmb" id="rmb">
-                                <label for="rmb">Remember Me </label>
+                        <form method="post">
+                            <ul class='space-y-4'>
+                                <li class='flex flex-col'>
+                                    <label for="luname" class='text-lg font-medium'>Username</label>
+                                    <input type="text" name="luname" id="luname" placeholder="Enter your username" class='w-full border-2 rounded-lg p-2 bg-gray-200 text-black focus:bg-gray-100'>
+                                </li>
+                    
+                                <li class='flex flex-col'>
+                                    <label style="padding: 0px 1.5px;" for="lpw" class='text-lg font-medium'>Password</label>
+                                    <input type="password" name="lpw" id="lpw" placeholder="Enter your password" class='w-full border-2 rounded-lg p-2 bg-gray-200 text-black focus:bg-gray-100'>
+                                </li>
+                                <div>
+                                    <input type="checkbox" name="rmb" id="rmb">
+                                    <label for="rmb">Remember Me </label>
+                                </div>
+                                
+                            </ul>
+                            <div class='pt-10 space-y-4'>
+                                <button type="submit" name="lsubmit" class='p-2 w-full bg-[#ffbe58] rounded-2xl text-xl font-semibold hover:bg-[#d2973a]'>Log in</button>
+                                <h3 class='text-center'>Dont have an account? <a class='underline text-blue-700' href='register.php'>Sign Up</a></h3>
                             </div>
-                
-                        </ul>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-                <div>
-                    <img src="img/assets/bg-login.jpg" alt="" width="800">
+                <div class='absolute top-0 left-20 translate-x-3/4 translate-y-1/6 opacity-90 w-[30%] scale-[60%]'>
+                    <img src="img/assets/Vector.png" alt="" width='700px' class='' data-aos="fade-left" data-aos-duration='1000'>
                 </div>
+                <div class='absolute bottom-0 left-0 -translate-x-1/3 translate-y-1/6 opacity-90 w-[30%] scale-50' '>
+                    <img src="img/assets/Vector1.png" alt="" width='500px' class='' data-aos="fade-right" data-aos-duration='1000'>
+                </div>
+                <div class="w-full h-full bg-[url('img/assets/bg-login4.jpg')] bg-cover z-10"></div>
             </div>
-        </div>
-        
-    </section>
+        </section>        
+    </main>
 
 </body>
 </html>
