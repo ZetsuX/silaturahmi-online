@@ -33,6 +33,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
 </head>
 <body class='h-screen w-full overflow-hidden relative'>
@@ -119,23 +120,30 @@
             </table>
             <div class='flex items-center gap-x-2'>
                 <?php if ($currentPage > 1) :?>
-                    <a 
+                    <a class="w-8 h-8 rounded-md flex justify-center items-center bg-[#2A3553] bg-opacity-10 border border-[#2A3553] text-[#2A3553] backdrop-blur"
                         href="?page=<?= $currentPage - 1 ?>">
-                            ←
+                        <i class="fa-solid fa-chevron-left fa-2xs"></i>
                     </a>
                 <?php endif; ?>
 
                 <?php for($i = 1; $i <= $pageCount; $i++) : ?>
-                    <a class=" w-8 h-8 rounded-md flex justify-center items-center bg-[#2A3553] bg-opacity-10 border border-[#2A3553] text-[#2A3553] backdrop-blur"
-                        href="?page=<?= $i ?>">
-                            <?= $i ?> 
-                    </a>
+                    <?php if ($currentPage == $i) :?>
+                        <a class="w-8 h-8 rounded-md flex justify-center items-top bg-[#2A3553] text-white border border-[#2A3553] backdrop-blur"
+                            href="?page=<?= $i ?>">
+                                <?= $i ?> 
+                        </a>
+                    <?php else :?>
+                        <a class=" w-8 h-8 rounded-md flex justify-center items-top bg-[#2A3553] bg-opacity-10 border border-[#2A3553] text-[#2A3553] backdrop-blur"
+                            href="?page=<?= $i ?>">
+                                <?= $i ?> 
+                        </a>
+                    <?php endif; ?>
                 <?php endfor; ?>
                 
                 <?php if ($currentPage < $pageCount) :?>
-                    <a 
+                    <a class="w-8 h-8 rounded-md flex justify-center items-center bg-[#2A3553] bg-opacity-10 border border-[#2A3553] text-[#2A3553] backdrop-blur"
                         href="?page=<?= $currentPage + 1 ?>">
-                            →
+                        <i class="fa-solid fa-chevron-right fa-2xs"></i>
                     </a>
                 <?php endif; ?>
             </div>
