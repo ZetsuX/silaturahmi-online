@@ -133,7 +133,7 @@
         $econtent = htmlspecialchars($editedData["econtent"]);
         $oldimage = htmlspecialchars($editedData["oldimg"]);
 
-        if (($editedFile['mimage']['size'] == 0 && $editedFile['mimage']['error'] == 0) || $editedFile['eimage']['error'] === 4) {
+        if (($editedFile['eimage']['size'] == 0 && $editedFile['eimage']['error'] == 0) || $editedFile['eimage']['error'] === 4) {
             $eimage = $oldimage;
         } else {
             $eimage = uploadFile($editedFile['eimage'], ['jpg', 'png', 'jpeg'], 2000000);
