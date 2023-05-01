@@ -101,7 +101,7 @@
                         <td style="font-family: 'Poppins', sans-serif;" class="text-left max-w-[200px] truncate text-ellipsis overflow-x-hidden"><?= $m['content'] ?></td>
                         <td style="font-family: 'Poppins', sans-serif;" class="text-left max-w-[10%] truncate text-ellipsis overflow-x-hidden">
                             <?php if ($m['reply']) :?>
-                                <p><?= $m['reply'] ?></p>
+                                <p style="font-family: 'Poppins', sans-serif;"><?= $m['reply'] ?></p>
                             <?php else :?>
                                 <h4 style="font-family: 'Poppins', sans-serif;" class="text-center">Belum Dibalas</h4>
                             <?php endif; ?>
